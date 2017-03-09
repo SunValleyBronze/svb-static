@@ -1,3 +1,3 @@
-# SunValleyBronze.com PDFJS Viewer with Customizations
+# SunValleyBronze.com Static Resources
 
-More soon...
+These resources get deployed to AWS S3.
