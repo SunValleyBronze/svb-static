@@ -22,6 +22,17 @@ The tricky part about this web application is that we have modified the HTML, th
   
 Unfortunately this makes upgrading from one version of PDF.js to another very time consuming. We have had to do this once to pick up a bug fix, and we had to manually and carefully move over the customizations. This is why it might be better to fork https://github.com/mozilla/pdf.js instead; although that will come with its own challenges.
 
+## Build from source
+
+NOTE: This modified code can now be generated from svb-v1.5.188 branch of the SVB pdf.js git repository: https://github.com/SunValleyBronze/pdf.js/
+
+    git clone git@github.com:SunValleyBronze/pdf.js.git
+    git checkout svb-v1.5.188
+    npm install
+    gulp generic
+
+This will create a build/generic directory. You can copy the contents of this directory into pdfjs-1.5.188-customized in this repository to update the build.
+
 ### How We Use PDF.js on SunValleyBronze.com
 
 We run this PDF.js site on AWS S3 and load it in an iframe on SunValleyBronze.com. Communication between the parent frame and the iframe is necessary, and you will see code for that here in GitHub (/web/sunvalleybronze.js) and on SunValleyBronze.com (Code Blocks on the viewer pages). As of this writing the viewer pages are under "Dealer Resources" and "Public Resources" in the Squarespace Pages view.
