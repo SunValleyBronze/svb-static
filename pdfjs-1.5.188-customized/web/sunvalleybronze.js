@@ -25,9 +25,9 @@ function receiveSVBMessage(e) {
   }
 }
 
-window.addEventListener('message', receiveSVBMessage, false)
+window.addEventListener('message', receiveSVBMessage, false);
 
-(function PrintOptionsOverlay() {
+window.onload = function PrintOptionsOverlay() {
 
   var OVERLAY_NAME = 'printOptionsOverlay';
 
@@ -39,11 +39,11 @@ window.addEventListener('message', receiveSVBMessage, false)
 
     PDFViewerApplication.overlayManager.close(OVERLAY_NAME);
   });
-  
+
   cancelButton.addEventListener('click', function () {
     PDFViewerApplication.overlayManager.close(OVERLAY_NAME);
   });
 
   PDFViewerApplication.overlayManager.register(OVERLAY_NAME, container);
 
-})();
+};
