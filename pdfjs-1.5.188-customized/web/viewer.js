@@ -7184,9 +7184,10 @@ var pdfjsWebLibs;
       }
       OverlayManager.close('printServiceOverlay');
      });
+     closeOptionsOverlay();
     },
     renderPages: function () {
-     var pageCount = this.pagesOverview.length;
+     var pageCount = this.pageCount;
      var renderNextPage = function (resolve, reject) {
       this.throwIfInactive();
       if (++this.currentPage >= pageCount) {
@@ -7251,30 +7252,51 @@ var pdfjsWebLibs;
      console.warn('Ignored window.print() because of a pending print job.');
      return;
     }
-    ensureOverlay().then(function () {
-     if (activeService) {
-      OverlayManager.open('printServiceOverlay');
-     }
+    ensureOptionsOverlay().then(function () {
+     OverlayManager.open('printOptionsOverlay');
+     document.getElementById('printOptionsCancel').onclick = closeOptionsOverlay;
+     document.getElementById('printCurrentPage').onclick = function () {
+      var currentPageNum = document.getElementById('pageNumber').value;
+      var currentPage = currentPageNum - 2;
+      var pageCount = currentPage + 2;
+      printFunction(currentPage, pageCount);
+     };
+     document.getElementById('printDocument').onclick = function () {
+      printFunction();
+     };
     });
-    try {
-     dispatchEvent('beforeprint');
-    } finally {
-     if (!activeService) {
-      console.error('Expected print service to be initialized.');
-      if (OverlayManager.active === 'printServiceOverlay') {
-       OverlayManager.close('printServiceOverlay');
-      }
-      return;
-     }
-     var activeServiceOnEntry = activeService;
-     activeService.renderPages().then(function () {
-      return activeServiceOnEntry.performPrint();
-     }).catch(function () {
-     }).then(function () {
-      if (activeServiceOnEntry.active) {
-       abort();
+    function printFunction(currentPage, pageCount) {
+     ensureOverlay().then(function () {
+      if (activeService) {
+       OverlayManager.open('printServiceOverlay');
       }
      });
+     try {
+      dispatchEvent('beforeprint');
+     } finally {
+      if (!activeService) {
+       console.error('Expected print service to be initialized.');
+       if (OverlayManager.active === 'printServiceOverlay') {
+        OverlayManager.close('printServiceOverlay');
+       }
+       return;
+      }
+      var activeServiceOnEntry = activeService;
+      if (currentPage && pageCount) {
+       activeService.currentPage = currentPage;
+       activeService.pageCount = pageCount;
+      } else {
+       activeService.pageCount = activeService.pagesOverview.length;
+      }
+      activeService.renderPages().then(function () {
+       return activeServiceOnEntry.performPrint();
+      }).catch(function () {
+      }).then(function () {
+       if (activeServiceOnEntry.active) {
+        abort();
+       }
+      });
+     }
     }
    };
    function dispatchEvent(eventType) {
@@ -7329,6 +7351,19 @@ var pdfjsWebLibs;
     };
     window.addEventListener('beforeprint', stopPropagationIfNeeded);
     window.addEventListener('afterprint', stopPropagationIfNeeded);
+   }
+   var optionsOverlayPromise;
+   function ensureOptionsOverlay() {
+    if (!optionsOverlayPromise) {
+     optionsOverlayPromise = OverlayManager.register('printOptionsOverlay', document.getElementById('printOptionsOverlay'), closeOptionsOverlay, true);
+     document.getElementById('printOptionsCancel').onclick = closeOptionsOverlay;
+    }
+    return optionsOverlayPromise;
+   }
+   function closeOptionsOverlay() {
+    if (OverlayManager.active === 'printOptionsOverlay') {
+     OverlayManager.close('printOptionsOverlay');
+    }
    }
    var overlayPromise;
    function ensureOverlay() {

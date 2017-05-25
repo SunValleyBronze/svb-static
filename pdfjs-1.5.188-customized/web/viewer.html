@@ -270,20 +270,6 @@ See https://github.com/adobe-type-tools/cmap-resources
       </div> <!-- mainContainer -->
 
       <div id="overlayContainer" class="hidden">
-        <!-- BEGIN SUNVALLEYBRONZE.COM: PRINT OPTIONS -->
-        <div id="printOptionsOverlay" class="container hidden">
-          <div class="dialog">
-            <div class="row">
-              <label for="currentPage"><input id="currentPage" name="printPage" type="radio" value=0 checked="checked">Print current page</label>
-              <label for="allPages"><input id="allPages" name="printPage" type="radio" value=1>Print entire document</label>
-            </div>
-            <div class="buttonRow">
-              <button id="printOptionsCancel" class="overlayButton"><span>Cancel</span></button>
-              <button id="printOptionsOk" class="overlayButton"><span>OK</span></button>
-            </div>
-          </div>
-        </div>
-        <!-- END SUNVALLEYBRONZE.COM: PRINT OPTIONS -->
         <div id="passwordOverlay" class="container hidden">
           <div class="dialog">
             <div class="row">
@@ -344,6 +330,22 @@ See https://github.com/adobe-type-tools/cmap-resources
             </div>
           </div>
         </div>
+
+        <!-- BEGIN SUNVALLEYBRONZE.COM: PRINT OPTIONS -->
+        <div id="printOptionsOverlay" class="container hidden">
+          <div class="dialog">
+            <div class="buttonRow">
+              <button id="printCurrentPage" class="overlayButton"><span>Print Current Page</span></button>
+              <button id="printDocument" class="overlayButton"><span>Print Document</span></button>
+            </div>
+            <br>
+            <div class="buttonRow">
+              <button id="printOptionsCancel" class="overlayButton"><span>Cancel</span></button>
+            </div>
+          </div>
+        </div>
+        <!-- END SUNVALLEYBRONZE.COM: PRINT OPTIONS -->
+
         <div id="printServiceOverlay" class="container hidden">
           <div class="dialog">
             <div class="row">
