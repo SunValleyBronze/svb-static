@@ -25,10 +25,10 @@ Unfortunately this makes upgrading from one version of PDF.js to another very ti
 
 ## Build from source
 
-NOTE: This modified code can be generated from svb-v1.6.210 branch of the SVB pdf.js git repository: https://github.com/SunValleyBronze/pdf.js/
+NOTE: This modified code can be generated from svb-v1.7.225 branch of the SVB pdf.js git repository: https://github.com/SunValleyBronze/pdf.js/
 
     git clone git@github.com:SunValleyBronze/pdf.js.git
-    git checkout svb-v1.6.210
+    git checkout svb-v1.7.225
     npm install
     gulp generic
 
