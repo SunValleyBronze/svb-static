@@ -26,24 +26,3 @@ function receiveSVBMessage(e) {
 }
 
 window.addEventListener('message', receiveSVBMessage, false);
-
-window.onload = function PrintOptionsOverlay() {
-
-  var OVERLAY_NAME = 'printOptionsOverlay';
-
-  var container = document.getElementById(OVERLAY_NAME);
-  var okButton = document.getElementById('printOptionsOk');
-  var cancelButton = document.getElementById('printOptionsCancel');
-
-  okButton.addEventListener('click', function () {
-
-    PDFViewerApplication.overlayManager.close(OVERLAY_NAME);
-  });
-
-  cancelButton.addEventListener('click', function () {
-    PDFViewerApplication.overlayManager.close(OVERLAY_NAME);
-  });
-
-  PDFViewerApplication.overlayManager.register(OVERLAY_NAME, container);
-
-};
