@@ -40,7 +40,7 @@ We run this PDF.js site on AWS S3 and load it in an iframe on SunValleyBronze.co
 
 ### Customizing PDF.js
 
-In order to make a change to this version of PDF.js, you must first modify the source files in pdf.js, then build using gulp generic and ensure that your changes behave correctly. Loading viewer.html from the build/generic directory in a browser allows you to perform basic tests. Once you are satisfied with your modifications, you can upload the changes to AWS S3. Be sure that all of the files are marked as public, particularly if you add a new file.
+In order to make a change to this version of PDF.js, you must first modify the source files in the pdf.js project, then build using gulp generic and ensure that your changes behave correctly. Loading viewer.html from the build/generic directory in a browser allows you to perform basic tests. Once you are satisfied with your modifications, you can upload the changes to the sunvalleybronze-viewer.com bucket on AWS S3. Be sure that all of the files are marked as public, particularly if you add a new file.
 
 --
 
