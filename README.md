@@ -40,7 +40,33 @@ We run this PDF.js site on AWS S3 and load it in an iframe on SunValleyBronze.co
 
 ### Customizing PDF.js
 
-In order to make a change to this version of PDF.js, you must first modify the source files in the pdf.js project, then build using gulp generic and ensure that your changes behave correctly. Loading viewer.html from the build/generic directory in a browser allows you to perform basic tests. Once you are satisfied with your modifications, you can upload the changes to the sunvalleybronze-viewer.com bucket on AWS S3. Be sure that all of the files are marked as public, particularly if you add a new file.
+In order to make a change to this version of PDF.js, you must first modify the source files in the pdf.js project, then build using gulp generic and ensure that your changes behave correctly. Loading viewer.html from the build/generic directory in a browser allows you to perform basic tests. Once you are satisfied with your modifications, you can deploy the changes to the sunvalleybronze-viewer.com bucket on AWS S3 following the instructions below.
+
+### Deployment
+
+#### Setup
+
+1. Install aws cli (note that on OSX, it will *always* be in the system python bin, even if you install using a different Python).
+1. You will need your access key credentials. If you don't have them, you can make new ones from the AWS IAM console.
+1. Set up aws cli by running: ```aws configure```
+
+#### Deploy
+
+1. Run the deployment script:
+    
+    ```sh deploy.sh```
+    
+1. Log into Amazon and verify that the new directory in the sunvalleybronze-viewer.com S3 bucket is populated correctly. Copy the directory name.
+1. Log into squarespace and go to the sunvalleybronze site.
+1. Go to the PAGES section.
+1. Switch sunvalleybronze.com Resources to the new S3 directory:
+    1. Go to Public Resources -> Resources -> more (chevron icon)
+    1. Go to File Viewer -> Settings (gear icon)
+    1. Click EDIT
+    1. Edit viewerUrl (near the bottom) to have the new path you just created in S3.
+    1. Click Apply, then Save.
+1. Repeat the previous step for Dealer Resources.
+1. Verify that the new code is being loaded in the browser.
 
 --
 
