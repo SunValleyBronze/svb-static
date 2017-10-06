@@ -853,9 +853,6 @@ var pdfjsWebLibs;
      this.outerContainer = options.outerContainer;
      this.eventBus = options.eventBus;
      this.toggleButton = options.toggleButton;
-     this.thumbnailButton = options.thumbnailButton;
-     this.outlineButton = options.outlineButton;
-     this.attachmentsButton = options.attachmentsButton;
      this.thumbnailView = options.thumbnailView;
      this.outlineView = options.outlineView;
      this.attachmentsView = options.attachmentsView;
@@ -866,8 +863,6 @@ var pdfjsWebLibs;
       this.isInitialViewSet = false;
       this.close();
       this.switchView(SidebarView.THUMBS);
-      this.outlineButton.disabled = false;
-      this.attachmentsButton.disabled = false;
      },
      get visibleView() {
       return this.isOpen ? this.active : SidebarView.NONE;
@@ -905,9 +900,6 @@ var pdfjsWebLibs;
       var shouldForceRendering = false;
       switch (view) {
       case SidebarView.THUMBS:
-       this.thumbnailButton.classList.add('toggled');
-       this.outlineButton.classList.remove('toggled');
-       this.attachmentsButton.classList.remove('toggled');
        this.thumbnailView.classList.remove('hidden');
        this.outlineView.classList.add('hidden');
        this.attachmentsView.classList.add('hidden');
@@ -915,28 +907,6 @@ var pdfjsWebLibs;
         this._updateThumbnailViewer();
         shouldForceRendering = true;
        }
-       break;
-      case SidebarView.OUTLINE:
-       if (this.outlineButton.disabled) {
-        return;
-       }
-       this.thumbnailButton.classList.remove('toggled');
-       this.outlineButton.classList.add('toggled');
-       this.attachmentsButton.classList.remove('toggled');
-       this.thumbnailView.classList.add('hidden');
-       this.outlineView.classList.remove('hidden');
-       this.attachmentsView.classList.add('hidden');
-       break;
-      case SidebarView.ATTACHMENTS:
-       if (this.attachmentsButton.disabled) {
-        return;
-       }
-       this.thumbnailButton.classList.remove('toggled');
-       this.outlineButton.classList.remove('toggled');
-       this.attachmentsButton.classList.add('toggled');
-       this.thumbnailView.classList.add('hidden');
-       this.outlineView.classList.add('hidden');
-       this.attachmentsView.classList.remove('hidden');
        break;
       default:
        console.error('PDFSidebar_switchView: "' + view + '" is an unsupported value.');
@@ -984,6 +954,7 @@ var pdfjsWebLibs;
        this.close();
       } else {
        this.open();
+       this.switchView(SidebarView.THUMBS);
       }
      },
      _dispatchEvent: function PDFSidebar_dispatchEvent() {
@@ -1018,32 +989,6 @@ var pdfjsWebLibs;
       self.mainContainer.addEventListener('transitionend', function (evt) {
        if (evt.target === this) {
         self.outerContainer.classList.remove('sidebarMoving');
-       }
-      });
-      self.thumbnailButton.addEventListener('click', function () {
-       self.switchView(SidebarView.THUMBS);
-      });
-      self.outlineButton.addEventListener('click', function () {
-       self.switchView(SidebarView.OUTLINE);
-      });
-      self.outlineButton.addEventListener('dblclick', function () {
-       self.pdfOutlineViewer.toggleOutlineTree();
-      });
-      self.attachmentsButton.addEventListener('click', function () {
-       self.switchView(SidebarView.ATTACHMENTS);
-      });
-      self.eventBus.on('outlineloaded', function (e) {
-       var outlineCount = e.outlineCount;
-       self.outlineButton.disabled = !outlineCount;
-       if (!outlineCount && self.active === SidebarView.OUTLINE) {
-        self.switchView(SidebarView.THUMBS);
-       }
-      });
-      self.eventBus.on('attachmentsloaded', function (e) {
-       var attachmentsCount = e.attachmentsCount;
-       self.attachmentsButton.disabled = !attachmentsCount;
-       if (!attachmentsCount && self.active === SidebarView.ATTACHMENTS) {
-        self.switchView(SidebarView.THUMBS);
        }
       });
       self.eventBus.on('presentationmodechanged', function (e) {
@@ -7437,10 +7382,7 @@ function getViewerConfiguration() {
   sidebar: {
    mainContainer: document.getElementById('mainContainer'),
    outerContainer: document.getElementById('outerContainer'),
-   toggleButton: document.getElementById('sidebarToggle'),
-   thumbnailButton: document.getElementById('viewThumbnail'),
-   outlineButton: document.getElementById('viewOutline'),
-   attachmentsButton: document.getElementById('viewAttachments'),
+   toggleButton: document.getElementById('viewThumbnail'),
    thumbnailView: document.getElementById('thumbnailView'),
    outlineView: document.getElementById('outlineView'),
    attachmentsView: document.getElementById('attachmentsView')
