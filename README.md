@@ -32,7 +32,9 @@ NOTE: This modified code can be generated from svb-v1.7.225 branch of the SVB pd
     npm install
     gulp generic
 
-This will create a build/generic directory. You can copy the contents of that directory into pdfjs-1.5.188-customized (so named for historical reasons) in this repository to update the build.
+This will create a build/generic directory. You can copy the contents of that directory into build/generic in the svb-static to update the build. If your repositories are siblings, open a terminal in svb-static and run:
+
+    cp -R ../pdf.js/build/generic/* build/generic
 
 ### How We Use PDF.js on SunValleyBronze.com
 
