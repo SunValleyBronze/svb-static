@@ -63,7 +63,7 @@ In order to make a change to this version of PDF.js, you must first modify the s
     1. Go to Public Resources -> Resources -> more (chevron icon)
     1. Go to File Viewer -> Settings (gear icon)
     1. Click EDIT
-    1. Edit viewerUrl (near the bottom) to have the new path you just created in S3.
+    1. Edit viewerUrl (near the bottom) to have the new path you just created in S3. Note that this url must use the s3 domain (e.g. s3.amazonaws.com/sunvalleybronze-viewer.com) not the bucket domain (e.g. sunvalleybronze-viewer.com.s3-website-us-east-1.amazonaws.com) as only the former url supports http and https.
     1. Click Apply, then Save.
 1. Repeat the previous step for Dealer Resources.
 1. Verify that the new code is being loaded in the browser.
