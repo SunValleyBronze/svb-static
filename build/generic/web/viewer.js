@@ -7202,7 +7202,6 @@ var pdfjsWebLibs;
      document.getElementById('printOptionsCancel').onclick = closeOptionsOverlay;
      document.getElementById('printCurrentPage').onclick = function () {
       var currentPageNum = document.getElementById('pageNumber').value;
-      // These numbers are magical, but they work. Why?
       var currentPage = currentPageNum - 2;
       var pageCount = currentPage + 2;
       printFunction(currentPage, pageCount);
@@ -7228,7 +7227,7 @@ var pdfjsWebLibs;
        return;
       }
       var activeServiceOnEntry = activeService;
-      if (currentPage !== null && pageCount !== null) {
+      if (currentPage !== null && currentPage !== undefined && pageCount !== null && pageCount !== undefined) {
        activeService.currentPage = currentPage;
        activeService.pageCount = pageCount;
       } else {
