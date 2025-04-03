@@ -1,4 +1,4 @@
-# SunValleyBronze.com Static Resources
+# 
 
 The resources in this repository get deployed to AWS S3. 
 
