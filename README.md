@@ -72,4 +72,4 @@ In order to make a change to this version of PDF.js, you must first modify the s
 
 --
 
-Questions? Contact Seth at webdevbyseth@gmail.com.
+
